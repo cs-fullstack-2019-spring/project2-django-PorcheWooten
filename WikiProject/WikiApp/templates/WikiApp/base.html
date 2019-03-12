@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'WikiApp/css/base.css' %}">
+
+</head>
+<body class="container1">
+<header>WikiChey</header>
+
+<nav>
+    <a href="{% url 'index' %}">Home</a>
+    <a href="{% url 'NewPosts' %}">New Wiki Post</a>
+    <a href="{% url 'YourPosts' %}">Your Wiki Post</a>
+</nav>
+
+<section>
+    {% block content %}
+    <h1>POST</h1>
+    {% endblock content %}
+</section>
+<aside>
+    {% block section %}
+    <h1>Related Items</h1>
+    {% endblock section %}
+</aside>
+
+<footer>
+    <p>WikiChey was develop by</p>
+    <p>Porche' Wooten</p>
+</footer>
+
+</body>
+</html>
