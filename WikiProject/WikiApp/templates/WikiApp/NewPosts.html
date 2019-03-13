@@ -2,6 +2,7 @@
 {% load static %}
 {% block content %}
 <section>
+
     <h1>New Post</h1>
     <form method="post">
 
@@ -9,6 +10,7 @@
         {% csrf_token %}
         <input type="submit" value="Submit">
     </form>
+
 </section>
 {% endblock content %}
 {% block section %}

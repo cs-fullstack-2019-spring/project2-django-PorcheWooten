@@ -7,15 +7,16 @@
     <link rel="stylesheet" href="{% static 'WikiApp/css/base.css' %}">
 
 </head>
-<body class="container1">
-<header>WikiChey</header>
+<body >
+<div class="container1">
+<header>WikiChey
 
-<nav>
+<p>
     <a href="{% url 'index' %}">Home</a>
     <a href="{% url 'NewPosts' %}">New Wiki Post</a>
     <a href="{% url 'YourPosts' %}">Your Wiki Post</a>
-</nav>
-
+</p>
+</header>
 <section>
     {% block content %}
     <h1>POST</h1>
@@ -26,11 +27,15 @@
     <h1>Related Items</h1>
     {% endblock section %}
 </aside>
-
+<!--<article>-->
+    <!--{% block article %}-->
+    <!--<h1>Post Text</h1>-->
+    <!--{% endblock article %}-->
+<!--</article>-->
 <footer>
     <p>WikiChey was develop by</p>
     <p>Porche' Wooten</p>
 </footer>
-
+</div>
 </body>
 </html>

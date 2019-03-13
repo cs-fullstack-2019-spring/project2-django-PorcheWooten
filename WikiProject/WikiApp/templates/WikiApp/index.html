@@ -1,5 +1,28 @@
 {% extends 'WikiApp/base.html' %}
 {% load static %}
+
 {% block content %}
-<h1>Homepage</h1>
+<!--<div class="postContainer">-->
+<!--<div class="pic">-->
+
+{% for posts in allposts %}
+<div class="postContainer">
+    <img class="pic" src='{{ posts.imageURL }}' height="250px" width="250px">
+
+    <div class="text">
+        <H1>{{posts.postSubject}}</H1>
+        {{posts.postText}}
+        <p>
+        <button>Edit</button>
+        <button>Delete</button>
+        </p>
+    </div>
+</div>
+<hr/>
+{% endfor %}
+<!--</div>-->
+<!--</div>-->
 {% endblock content %}
+
+
+

@@ -1,12 +1,13 @@
 {% extends 'WikiApp/base.html' %}
 {% load static %}
 {% block content %}
+
 <section>
 
     <h1>Your Posts</h1>
     {% for posts in allposts %}
         <div>
-            <img src='{{ posts.imageURL }}'>
+            <img src='{{ posts.imageURL }}' height="250px" width="250px">
             <p>{{posts.postSubject}}</p>
             <p>{{posts.postText}}</p>
 

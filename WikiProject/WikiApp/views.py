@@ -6,7 +6,11 @@ from .forms import PostForm, PostModel,relatedItemsForm,RelatedItemsModel
 # Create your views here.
 
 def index(request):
-    return render(request, 'WikiApp/index.html')
+    allposts = PostModel.objects.all()
+    context = {
+        'allposts': allposts
+    }
+    return render(request, 'WikiApp/index.html', context)
 
 
 def NewPosts(request):
