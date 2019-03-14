@@ -1,22 +1,26 @@
 {% extends 'WikiApp/base.html' %}
 {% load static %}
+
 {% block content %}
+<!--<div class="postContainer">-->
+<!--<div class="pic">-->
 
-<section>
+{% for posts in allposts %}
+<div class="postContainer">
+    <img class="pic" src='{{ posts.imageURL }}' height="250px" width="250px">
 
-    <h1>Your Posts</h1>
-    {% for posts in allposts %}
-        <div>
-            <img src='{{ posts.imageURL }}' height="250px" width="250px">
-            <p>{{posts.postSubject}}</p>
-            <p>{{posts.postText}}</p>
-
-        </div>
-    <button>Edit</button>
-    <button>Delete</button>
-    <hr/>
-    {% endfor %}
-
-
-</section>
+    <div class="text" style="width: 700px">
+        <H1>{{posts.postSubject}}</H1>
+        {{posts.postText}}
+        <p>
+            <a href="{% url 'editPost' posts.id %}"><button>Edit</button></a>
+            <a href="{% url 'deletePost' posts.id %}"><button>Delete</button></a>
+        </p>
+    </div>
+</div>
+<hr/>
+{% endfor %}
+<!--</div>-->
+<!--</div>-->
 {% endblock content %}
+

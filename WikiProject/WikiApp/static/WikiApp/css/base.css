@@ -31,6 +31,7 @@ aside{
     grid-row: 2;
 
     border: 1px solid black;
+    padding-right: 150px;
 }
 
 /*article{*/
@@ -49,8 +50,8 @@ footer {
 
 .postContainer {
     display: grid;
-    grid-template-columns: 1fr 2fr;
-    grid-gap: 2px;
+    grid-template-columns: 1fr 1fr;
+
     /*border: 1px solid red;*/
     grid-template-areas: "pic text";
 
@@ -61,7 +62,11 @@ footer {
     /*grid-row: 1;*/
     /*border: 1px solid black;*/
     grid-area: pic;
-    padding: 10px;
+    padding-left: 110px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+
+
 }
 
 .text{
@@ -70,7 +75,10 @@ footer {
     /*text-align: center;*/
     /*border: 1px solid black;*/
     grid-area: text;
-    padding: 10px;
+    padding-top:20px;
+    padding-bottom:20px;
+    padding-right: 150px;
+
 }
 
 .title{
