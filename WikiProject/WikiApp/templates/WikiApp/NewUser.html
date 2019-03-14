@@ -1,0 +1,13 @@
+{% extends 'WikiApp/base.html' %}
+{% load static %}
+
+{% block content %}
+<form method="post">
+    {{ userform.as_p }}
+    {% csrf_token %}
+
+    <a href="{% url 'YourPosts' %}"><input type="submit" value="Submit"></a>
+</form>
+<a href="{% url 'index' %}"><button>Cancel</button></a>
+
+{% endblock content %}

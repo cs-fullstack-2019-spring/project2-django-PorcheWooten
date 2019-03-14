@@ -24,3 +24,15 @@
 <!--</div>-->
 {% endblock content %}
 
+{% block section %}
+
+<h2>Related Items</h2>
+{% for relatedPost in allRelatedPost %}
+<p><img src="{{ relatedPost.imageURL }}" height="250px" width="250px"></p>
+<a href="{% url 'editRelatedItem' relatedPost.id %}">Edit</a>
+<a href="{% url 'deleteRelatedItem' relatedPost.id %}">Delete</a>
+{% endfor %}
+{% endblock section %}
+
+
+
