@@ -123,3 +123,7 @@ STATIC_URL = '/static/'
 LOGIN_REDIRECT_URL='YourPosts'
 
 LOGOUT_REDIRECT_URL='index'
+
+# Image upload
+MEDIA_URL = '/images/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'images')

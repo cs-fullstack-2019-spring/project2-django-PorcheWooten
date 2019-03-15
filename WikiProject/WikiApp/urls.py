@@ -1,5 +1,7 @@
 from django.urls import path, include
 from . import views
+from django.views.static import serve
+from django.conf import settings
 
 urlpatterns = [
     path('', views.index, name='index'),
@@ -12,4 +14,5 @@ urlpatterns = [
     path('deletePost/<int:id>/', views.deletePost, name='deletePost'),
     path('deleteRelatedItem/<int:id>/', views.deleteRelatedItem, name='deleteRelatedItem'),
     path('accounts/', include('django.contrib.auth.urls')),
+    path('images/<path:path>/', serve, {'document_root': settings.MEDIA_ROOT, }),
 ]

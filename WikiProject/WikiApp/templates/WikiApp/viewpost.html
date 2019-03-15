@@ -2,18 +2,21 @@
 {% load static %}
 
 {% block content %}
+
+
+
 <h2>{{ user.username }}'s Posts</h2><a href="{% url 'logout' %}">LOGOUT</a>
 <!--<div class="postContainer">-->
 <!--<div class="pic">-->
 
 {% for posts in userPosts %}
-    <div class="postContainer">
+<div class="postContainer">
     <!--if user add pic to post-->
     {% if posts.wiki_post_image %}
-        <img class="pic" src='{{ posts.wiki_post_image.url }}'  width="250px" alt="images">
+    <img class="pic" src='{{ posts.wiki_post_image.url }}'  width="250px" alt="images">
     {% endif %}
     <div class="text" style="width: 700px">
-        <a href="{% url 'viewpost' %}"><H1>{{posts.postSubject}}</H1></a>
+        <H1>{{posts.postSubject}}</H1>
         {{posts.postText}}
         <p>
 
@@ -27,14 +30,4 @@
     </div>
 </div>
 {% endfor %}
-
-<hr/>
-
-
-
-
 {% endblock content %}
-
-
-
-

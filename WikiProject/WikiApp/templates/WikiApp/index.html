@@ -7,8 +7,9 @@
 
 {% for posts in allposts %}
 <div class="postContainer">
-    <img class="pic" src='{{ posts.imageURL }}' height="250px" width="250px">
-
+    {% if posts.wiki_post_image %}
+    <img class="pic" src='{{ posts.wiki_post_image.url }}' width="250px" alt="images">
+    {% endif %}
     <div class="text" style="width: 700px">
         <H1>{{posts.postSubject}}</H1>
         {{posts.postText}}
@@ -20,15 +21,7 @@
 <!--</div>-->
 {% endblock content %}
 
-{% block section %}
 
-    <h2>Related Items</h2>
-{% for relatedPost in allRelatedPost %}
-<p><img src="{{ relatedPost.imageURL }}" height="250px" width="250px"></p>
-
-<a href="{% url 'NewUser' %}">New User</a>
-{% endfor %}
-{% endblock section %}
 
 
 
