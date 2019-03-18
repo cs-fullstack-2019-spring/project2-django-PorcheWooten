@@ -2,7 +2,8 @@
 {% load static %}
 
 {% block content %}
-<h2>{{ user.username }}'s Posts</h2><a href="{% url 'logout' %}">LOGOUT</a>
+<h2 class="welcome">{{ user.username }}'s Posts <a class="logout"href="{% url 'logout' %}">LOGOUT</a></h2>
+<p class="related"><a href="{% url 'newRelatedPost' posts.id %}">Add Related Item</a></p>
 <!--<div class="postContainer">-->
 <!--<div class="pic">-->
 
@@ -13,17 +14,9 @@
         <img class="pic" src='{{ posts.wiki_post_image.url }}'  width="250px" alt="images">
     {% endif %}
     <div class="text" style="width: 700px">
-        <a href="{% url 'viewpost' %}"><H1>{{posts.postSubject}}</H1></a>
+       <H1 class="subject">{{posts.postSubject}}</H1>
         {{posts.postText}}
-        <p>
-
-            <a href="{% url 'editPost' posts.id %}">
-                <button>Edit</button>
-            </a>
-            <a href="{% url 'deletePost' posts.id %}">
-                <button>Delete</button>
-            </a>
-        </p>
+        <p><a class='view' href="{% url 'viewpost' posts.id %}">View</a></p>
     </div>
 </div>
 {% endfor %}

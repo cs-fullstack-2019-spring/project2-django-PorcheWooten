@@ -2,7 +2,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.shortcuts import render, get_object_or_404, redirect
 
-from .forms import PostForm, PostModel, relatedItemsForm, RelatedItemsModel, userForm
+from .forms import PostForm, PostModel, relatedItemsForm, RelatedItemsModel, userForm, WikiUserModel
 
 
 # Create your views here.
@@ -16,27 +16,29 @@ def index(request):
     }
     return render(request, 'WikiApp/index.html', context)
 
+
 @login_required
 def NewPosts(request):
     new_post = PostForm(request.POST or None)
     if new_post.is_valid():
-        print("*",new_post,"*")
-        img_file=''
+        print("*", new_post, "*")
+        img_file = ''
         if request.FILES:
             # print(request.POST)
             # print(request.FILES)
             # print('file attached')
             img_file = request.FILES['wiki_post_image']
 
-
-        PostModel.objects.create(postSubject=request.POST['postSubject'], postText=request.POST['postText'], wiki_post_image= img_file, foreignKeyToPost = request.user)
+        PostModel.objects.create(postSubject=request.POST['postSubject'], postText=request.POST['postText'],
+                                 wiki_post_image=img_file, foreignKeyToPost=request.user)
 
         return redirect('YourPosts')
-    context={
+    context = {
         'new_post': new_post,
 
     }
     return render(request, 'WikiApp/NewPosts.html', context)
+
 
 @login_required
 def YourPosts(request):
@@ -49,7 +51,7 @@ def YourPosts(request):
         # This will grab all of the entries for the logged in user using the variable you just created
 
         wikiUser = request.user
-        userPosts = PostModel.objects.filter(foreignKeyToPost = wikiUser)
+        userPosts = PostModel.objects.filter(foreignKeyToPost=wikiUser)
         print(userPosts)
         # allRelatedPost = RelatedItemsModel.objects.all()
         # print(allRelatedPost)
@@ -57,81 +59,99 @@ def YourPosts(request):
         # context= {
         #     'allposts':userPosts
         # }
-    # else:
-    #     userPosts = ""
-    #     allRelatedPost=""
+        # else:
+        #     userPosts = ""
+        #     allRelatedPost=""
         context = {
             'userPosts': userPosts
-            }
+        }
     return render(request, 'WikiApp/YourPosts.html', context)
 
-def editPost(request,id):
-    posts = get_object_or_404(PostModel, pk=id)
+
+def editPost(request, post_id):
+    posts = get_object_or_404(PostModel, pk=post_id)
     edit_post = PostForm(request.POST or None, instance=posts)
     if edit_post.is_valid():
         edit_post.save()
         return redirect('YourPosts')
-    return render (request, 'WikiApp/NewPosts.html', {'new_post': edit_post})
+    return render(request, 'WikiApp/NewPosts.html', {'new_post': edit_post})
 
 
-
-def deletePost(request,id):
-    posts = get_object_or_404(PostModel, pk=id)
+def deletePost(request, post_id):
+    posts = get_object_or_404(PostModel, pk=post_id)
     if request.method == "POST":
         posts.delete()
         return redirect('YourPosts')
-    context={
+    context = {
         "selectedPost": posts
     }
-    return render (request, 'WikiApp/deletePost.html', context)
+    return render(request, 'WikiApp/deletePost.html', context)
 
 
-def newRelatedPost(request):
-    relatedPost = relatedItemsForm(request.POST or None)
+def newRelatedPost(request, post_id):
+    relatedPost = relatedItemsForm(request.POST or None, request.FILES)
     if relatedPost.is_valid():
         relatedPost.save()
-        return redirect ('YourPosts')
+        relateditems = get_object_or_404(PostModel, pk=post_id)
+        img_file = ''
+        if request.FILES:
+            # print(request.POST)
+            # print(request.FILES)
+            # print('file attached')
+            img_file = request.FILES['relatedwiki_post_image']
 
+        RelatedItemsModel.objects.create(relatedpostSubject=request.POST['relatedpostSubject'], relatedpostText=request.POST['relatedpostText'],
+                                 relatedwiki_post_image=img_file, foreignKeyToPost=relatedPost)
+        return redirect('viewpost')
     context = {
 
-        'relatedPost':relatedPost
+        'relatedPost': relatedPost,
+
     }
 
     return render(request, 'WikiApp/newRelatedPost.html', context)
 
 
-
-def editRelatedItem(request,id):
-    relatedPost = get_object_or_404(RelatedItemsModel, pk=id)
+def editRelatedItem(request, item_id):
+    relatedPost = get_object_or_404(RelatedItemsModel, pk=item_id)
     edit_relatedItem = relatedItemsForm(request.POST or None, instance=relatedPost)
     if edit_relatedItem.is_valid():
         edit_relatedItem.save()
         return redirect('YourPosts')
-    return render (request, 'WikiApp/newRelatedPost.html', {'relatedPost': edit_relatedItem})
+    return render(request, 'WikiApp/newRelatedPost.html', {'relatedPost': edit_relatedItem})
 
-def deleteRelatedItem(request,id):
-    relatedPost = get_object_or_404(RelatedItemsModel, pk=id)
+
+def deleteRelatedItem(request, item_id):
+    relatedPost = get_object_or_404(RelatedItemsModel, pk=item_id)
     if request.method == "POST":
         relatedPost.delete()
         return redirect('YourPosts')
-    context={
+    context = {
         "selectedItem": relatedPost
     }
-    return render (request, 'WikiApp/deleteRelatedItem.html', context)
+    return render(request, 'WikiApp/deleteRelatedItem.html', context)
+
 
 def NewUser(request):
     NewUser = userForm(request.POST or None)
-    user = User.objects.create_user(username=request.POST['username'], password=request.POST['password1'])
+
     if request.method == 'POST':
-     if NewUser.is_valid():
-        NewUser.save()
+        if NewUser.is_valid():
+            user = WikiUserModel.objects.create(username=request.POST['username'], email=request.POST['email'], password1=request.POST['password1'])
+            NewUser.save()
+            return redirect('index')
 
-
-        return redirect('index')
     context = {
         'userform': NewUser,
     }
     return render(request, 'WikiApp/NewUser.html', context)
 
-def viewpost(request):
-    return render (request, 'WikiApp/viewpost.html')
+
+def viewpost(request, post_id):
+    oldPost = get_object_or_404(PostModel, pk=post_id)
+    relatedItems = RelatedItemsModel.objects.filter(foreignKeyToPost=oldPost)
+    context = {
+        'oldPost': oldPost,
+        'relatedItems':relatedItems
+    }
+    return render(request, 'WikiApp/viewpost.html', context)

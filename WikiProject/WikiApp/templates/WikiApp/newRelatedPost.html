@@ -4,13 +4,14 @@
 
 <section>
 
-    <h1>Add related items</h1>
-    <form method="post">
+    <h1 class="newPostText">Add related items</h1>
+    <form method="post" enctype="multipart/form-data">
 
         {{ relatedPost.as_p }}
         {% csrf_token %}
         <input type="submit" value="Submit">
-    </form>
 
+    </form>
+    <a href="{% url 'viewpost' %}"><button>Cancel</button></a>
 </section>
 {% endblock content %}

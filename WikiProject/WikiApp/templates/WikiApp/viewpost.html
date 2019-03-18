@@ -2,32 +2,42 @@
 {% load static %}
 
 {% block content %}
+<h2 class="welcome">{{ user.username }}'s Posts <a class="logout" href="{% url 'logout' %}">LOGOUT</a></h2>
+<section>
 
 
 
-<h2>{{ user.username }}'s Posts</h2><a href="{% url 'logout' %}">LOGOUT</a>
-<!--<div class="postContainer">-->
-<!--<div class="pic">-->
 
-{% for posts in userPosts %}
 <div class="postContainer">
-    <!--if user add pic to post-->
-    {% if posts.wiki_post_image %}
-    <img class="pic" src='{{ posts.wiki_post_image.url }}'  width="250px" alt="images">
-    {% endif %}
-    <div class="text" style="width: 700px">
-        <H1>{{posts.postSubject}}</H1>
-        {{posts.postText}}
-        <p>
 
-            <a href="{% url 'editPost' posts.id %}">
-                <button>Edit</button>
-            </a>
-            <a href="{% url 'deletePost' posts.id %}">
-                <button>Delete</button>
-            </a>
+    <!--if user add pic to post-->
+    {% if oldPost.wiki_post_image %}
+    <img class="pic" src='{{ oldPost.wiki_post_image.url }}'  width="250px" alt="images">
+    {% endif %}
+    <div class="text" style="width: 130%">
+        <H1 class="subject">{{oldPost.postSubject}}</H1>
+        {{oldPost.postText}}
+        <p>
+            <a class="a" href="{% url 'editPost' oldPost.pk %}">Edit </a>
+            <a class="a" href="{% url 'deletePost' oldPost.pk %}">Delete</a>
         </p>
     </div>
+    <div class="relatedItems" style="width: 300px">
+
+        <h1 class="subject2">Related Items</h1>
+
+        {% for items in relatedItems %}
+        {% if items.relatedwiki_post_image %}
+        <img src='{{ items.relatedwiki_post_image.url }}'  width="150px" alt="images">
+        {% endif %}
+        <h2 class="subject">{{ items.relatedpostSubject }}</h2>
+        <p>{{ items.relatedpostText }}</p>
+        <a class="a" href="{% url 'editRelatedItem' oldPost.pk %}">Edit </a>
+        <a class="a" href="{% url 'deletePost' oldPost.pk %}">Delete</a>
+        <hr/>
+        {% endfor %}
+
+    </div>
 </div>
-{% endfor %}
+</section>
 {% endblock content %}

@@ -2,18 +2,19 @@
 {% load static %}
 {% block content %}
 {% if user.is_authenticated %}
-<h2>Welcome, {{ user.username }}</h2>
-<p><a href="{% url 'logout' %}">LOGOUT</a></p>
+<h1 class="welcome">Welcome, {{ user.username }}
+<a class="logout" href="{% url 'logout' %}">LOGOUT</a></h1>
 <section>
 
-    <h1>New Post</h1>
+    <h1 class="newPostText">Create New Post</h1>
     <form method="post" enctype="multipart/form-data">
 
         {{ new_post.as_p }}
         {% csrf_token %}
         <input type="submit" value="Submit">
+
     </form>
-    <a href="{% url 'newRelatedPost' %}"><h3>Add Related Item</h3></a>
+    <a href="{% url 'YourPosts' %}"><button>Cancel</button></a>
 </section>
 
 

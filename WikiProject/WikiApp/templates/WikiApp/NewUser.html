@@ -2,11 +2,13 @@
 {% load static %}
 
 {% block content %}
+<h1 class="newPostText">Create New Account</h1>
 <form method="post">
     {{ userform.as_p }}
     {% csrf_token %}
 
     <a href="{% url 'YourPosts' %}"><input type="submit" value="Submit"></a>
+
 </form>
 <a href="{% url 'index' %}"><button>Cancel</button></a>
 

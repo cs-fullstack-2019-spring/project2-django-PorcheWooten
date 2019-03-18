@@ -7,14 +7,16 @@
     <link rel="stylesheet" href="{% static 'WikiApp/css/base.css' %}">
 
 </head>
-<body >
+<body class="body">
 <div class="container1">
-<header>WikiChey <a href="{% url 'NewUser' %}">Sign Up</a> <a href="{% url 'login' %}">Login</a>
+<header class="headerText">WikiChey
+    <a class="signUp" href="{% url 'NewUser' %}">Sign Up | </a><a class="signIn" href="{% url 'login' %}">Sign In</a>
 
-<p>
-    <a href="{% url 'index' %}">Home</a>
-    <a href="{% url 'NewPosts' %}">New Wiki Post</a>
-    <a href="{% url 'YourPosts' %}">Your Wiki Post</a>
+
+<p class="navText">
+    <a class="navSpace"  href="{% url 'index' %}">Home</a>
+    <a class="navSpace" href="{% url 'NewPosts' %}">New Wiki Post</a>
+    <a class="navSpace" href="{% url 'YourPosts' %}">Your Wiki Post</a>
 </p>
 </header>
 <section>
@@ -22,16 +24,7 @@
     <h1>POST</h1>
     {% endblock content %}
 </section>
-<!--<aside>-->
-    <!--{% block section %}-->
-    <!--<h1>Related Items</h1>-->
-    <!--{% endblock section %}-->
-<!--</aside>-->
-<!--<article>-->
-    <!--{% block article %}-->
-    <!--<h1>Post Text</h1>-->
-    <!--{% endblock article %}-->
-<!--</article>-->
+
 <footer>
     <p>WikiChey was develop by</p>
     <p>Porche' Wooten</p>
