@@ -4,12 +4,14 @@ from .models import PostModel, RelatedItemsModel, WikiUserModel
 class PostForm(forms.ModelForm):
     class Meta():
         model = PostModel
+        exclude = ["foreignKeyToPost"]
         fields = '__all__'
 
 
 class relatedItemsForm(forms.ModelForm):
     class Meta():
         model = RelatedItemsModel
+        exclude = ["relatedItemForeignKey"]
         fields = '__all__'
 
 

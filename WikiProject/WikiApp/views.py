@@ -149,7 +149,7 @@ def NewUser(request):
 
 def viewpost(request, post_id):
     oldPost = get_object_or_404(PostModel, pk=post_id)
-    relatedItems = RelatedItemsModel.objects.filter(foreignKeyToPost=oldPost)
+    relatedItems = RelatedItemsModel.objects.all()
     context = {
         'oldPost': oldPost,
         'relatedItems':relatedItems

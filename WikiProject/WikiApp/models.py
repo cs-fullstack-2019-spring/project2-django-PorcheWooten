@@ -6,6 +6,8 @@ from django.contrib.auth.models import User
 class PostModel(models.Model):
     postSubject = models.CharField(max_length=250,  blank=True, null=True)
     postText = models.TextField(max_length=2000, default="",  blank=True, null=True)
+    create_date = models.DateTimeField(null=True, auto_now_add=True)
+    update_date = models.DateTimeField(auto_now=True, null=True)
     wiki_post_image = models.ImageField(blank=True, null=True, upload_to="images/%Y/%m/%d/")
     foreignKeyToPost = models.ForeignKey(User, on_delete=models.CASCADE,null=True, blank=True)
 
@@ -15,6 +17,8 @@ class PostModel(models.Model):
 class RelatedItemsModel(models.Model):
     relatedpostSubject = models.CharField(max_length=250, blank=True, null=True)
     relatedpostText = models.TextField(max_length=2000, default="", blank=True, null=True)
+    create_date = models.DateTimeField(null=True, auto_now_add=True)
+    update_date = models.DateTimeField(auto_now=True, null=True)
     relatedwiki_post_image = models.ImageField(blank=True, null=True, upload_to="images/%Y/%m/%d/")
     relatedItemForeignKey = models.ForeignKey(PostModel, on_delete=models.CASCADE,null=True, blank=True)
 

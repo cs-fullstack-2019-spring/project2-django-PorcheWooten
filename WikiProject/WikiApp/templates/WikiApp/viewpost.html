@@ -9,7 +9,7 @@
 
 
 <div class="postContainer">
-
+    <p class="related"><a href="{% url 'newRelatedPost' %}">Add Related Item</a></p>
     <!--if user add pic to post-->
     {% if oldPost.wiki_post_image %}
     <img class="pic" src='{{ oldPost.wiki_post_image.url }}'  width="250px" alt="images">
@@ -31,7 +31,9 @@
         <img src='{{ items.relatedwiki_post_image.url }}'  width="150px" alt="images">
         {% endif %}
         <h2 class="subject">{{ items.relatedpostSubject }}</h2>
-        <p>{{ items.relatedpostText }}</p>
+        <p>{{ items.create_date }}</p>
+        <p>{{ items.update_date }}
+        </p><p>{{ items.relatedpostText }}</p>
         <a class="a" href="{% url 'editRelatedItem' oldPost.pk %}">Edit </a>
         <a class="a" href="{% url 'deletePost' oldPost.pk %}">Delete</a>
         <hr/>
